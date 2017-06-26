@@ -11,3 +11,4 @@ app = Flask(__name__)
 socketio = SocketIO(app, async_mode = "threading")
 from app import views
 from app import request
+from app import api
