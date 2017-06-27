@@ -65,9 +65,15 @@ class Game:
         player = Player(name, self.key, sid)
         self.players[player.id] = player
         self.scores.append(0)
+        return player
 
     def player_list(self):
         return self.players.values()
+
+    def player_complete_objective(self, player, objective):
+        player.complete_objective(objective.id)
+        objective.player_complete(player.id)
+        self.update_player_score(player)
 
     def update_player_score(self, player):
         score = player.score

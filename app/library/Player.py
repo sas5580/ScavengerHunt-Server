@@ -1,7 +1,5 @@
 import uuid
 
-from Objective import Objective
-
 class Player:
     __player_map = {}
 
@@ -30,6 +28,5 @@ class Player:
     def update_location(self, location):
         self.location = location
 
-    def complete_objective(self, location):
-        self.objectives_complete.append(location)
-        Objective.get_by_location(location).player_complete(self.id)
+    def complete_objective(self, objective_id):
+        self.objectives_complete.append(objective_id)

@@ -2,22 +2,15 @@
     <p>TEST</p>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.2/socket.io.js"></script>
     <script type="text/javascript">
-        const ws = io.connect();
-
-        ws.on('connect', function() {
-            console.log("CONNECTED")
+        let ws = io.connect();
+        ws.on('connect', function(msg) {
+            console.log("CONNECTED");
+            //ws.emit('connection', {data: {type:'player', name:'P1'}});
         });
 
-        ws.on('my_response', function (message) {
-            console.log(message);
-        });
-        ws.on('penis', function(){
-            console.log('penis');
-        });
-
-        ws.on('game_info', function(message){
-            console.log('get_game_info');
-            console.log(message);
+        ws.on('connection', function(msg){
+            console.log("PLS");
+            console.log(msg.data);
         });
     </script>
 </head>
