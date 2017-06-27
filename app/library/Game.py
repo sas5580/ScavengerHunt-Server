@@ -1,9 +1,19 @@
 import time
 import uuid
 from random import randint
+from bisect import bisect_left
 
 from Player import Player
 from Objective import Objective
+
+def binary_search(seq, num):
+    lo = 0
+    hi = len(seq)
+    while lo < hi:
+        mid = (lo + hi)//2
+        if num >= seq[mid]: hi = mid
+        else: lo = mid + 1
+    return hi
 
 class Game:
     __game_map = {}
@@ -32,6 +42,7 @@ class Game:
         self.sid = sid
         self.players = {}
         self.objectives = {}
+        self.scores = []
 
         self.started = False
         self.start_time = None
@@ -53,9 +64,18 @@ class Game:
     def add_player(self, name, sid):
         player = Player(name, self.key, sid)
         self.players[player.id] = player
+        self.scores.append(0)
 
     def player_list(self):
         return self.players.values()
+
+    def update_player_score(self, player):
+        score = player.score
+        self.scores[binary_search(self.scores), score] += 1
+        player.score += 1
+
+    def get_player_rank(self, player):
+        return len(self.scores) - binary_search(self.scores, player.score)
 
     def add_objective(self, latitude, longitude, name, description):
         objective = Objective((latitude, longitude), name, description, self.key)

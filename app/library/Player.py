@@ -19,6 +19,7 @@ class Player:
         self.game_key = game_key
         self.objectives_complete = []
         self.sid = sid
+        self.score = 0
 
         # Tuple: (lat, long)
         self.location = None

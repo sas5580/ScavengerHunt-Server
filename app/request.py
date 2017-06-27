@@ -1,9 +1,10 @@
+import datetime
+import json
 from flask import request
 from flask_socketio import emit
 from app import app, socketio, Game, Objective, Player
-import datetime
-import json
 
+# Fake data
 game = Game(123, '')
 print game.key
 print len(Game.get_list())
@@ -38,22 +39,10 @@ def disconnect():
 
 @socketio.on('rank')
 def rank():
-	player = 
+	player = Player.get_by_id(request.sid)
+	print player.name, "requested its rank."
 
-@socketio.on('heart_beat')
-def heartBeat(message):
-	time = datetime.datetime.now()
-	emit('heartbeat', {'data': time})
+	game = Game.get_by_key(player.game_key)
+	rank = game.get_player_rank(player)
 
-@socketio.on('get_game_info')
-def getGameInfo(message):
-	print 'get_game_info: ', message
-	
-	print message['game']
-	
-	emit('game_info' , {'data' : 'get game info'})
-
-@socketio.on('my_event')
-def test_connect(message):
-	print message['data']
-	emit('penis', {'data': 'dur'})
+	emit('rank', {'data': {'rank': rank}})
