@@ -12,7 +12,7 @@ class Player:
         return Player.__player_map[id]
 
     def __init__(self, name, game_key, sid):
-        self.id = uuid.uuid1()
+        self.id = str(uuid.uuid1())
         self.name = name
         self.game_key = game_key
         self.objectives_complete = []

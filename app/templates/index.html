@@ -5,11 +5,17 @@
         let ws = io.connect();
         ws.on('connect', function(msg) {
             console.log("CONNECTED");
-            //ws.emit('connection', {data: {type:'player', name:'P1'}});
+            num = Math.floor((Math.random() * 10));
+            ws.emit('connection', {data: {type:'player', name:'P'+num}});
         });
 
         ws.on('connection', function(msg){
-            console.log("PLS");
+            console.log("CONNECTION");
+            console.log(msg.data);
+        });
+
+        ws.on('rank', function(msg){
+            console.log("RANK");
             console.log(msg.data);
         });
     </script>

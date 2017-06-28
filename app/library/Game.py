@@ -77,11 +77,11 @@ class Game:
 
     def update_player_score(self, player):
         score = player.score
-        self.scores[binary_search(self.scores), score] += 1
+        self.scores[binary_search(self.scores, score)] += 1
         player.score += 1
 
     def get_player_rank(self, player):
-        return len(self.scores) - binary_search(self.scores, player.score)
+        return binary_search(self.scores, player.score) + 1
 
     def add_objective(self, latitude, longitude, name, description):
         objective = Objective((latitude, longitude), name, description, self.key)

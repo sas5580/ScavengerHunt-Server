@@ -8,7 +8,7 @@ class Objective:
         return Objective.__objective_map[objective_id]
 
     def __init__(self, location, name, description, gameKey):
-        self.id = uuid.uuid1()
+        self.id = str(uuid.uuid1())
         self.location = location
         self.name = name
         self.description = description
