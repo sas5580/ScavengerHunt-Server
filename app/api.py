@@ -1,6 +1,7 @@
 from flask import jsonify
 from app import app, Game
 
+
 @app.route('/api/game_data/<string:game_id>')
 def game_data(game_id):
     if game_id in Game.get_list():
@@ -14,4 +15,3 @@ def game_data(game_id):
             'status': 400,
             'message': 'Invalid game id!'
         })
-

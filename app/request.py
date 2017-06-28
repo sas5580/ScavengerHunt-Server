@@ -15,7 +15,8 @@ game1.add_objective(1111, 2222, "name1", "description")
 game1.add_objective(3333, 4444, "name2", "description2")
 
 for o in game1.objective_list():
-	print o.id
+    print o.id
+
 
 @socketio.on('connect')
 def connect():
@@ -27,10 +28,15 @@ def connection(message):
     print "Connection: ", message['data']
 
     if message['data']['type'] == 'player':
-        name = message['data']['name']
-        # Use actual game code when implemented
-        # game = Game.get_by_key(message['data']['game key'])
-        player = game1.add_player(name, request.sid)
+        if 'playerId' in message['data']:
+            player = Player.get_by_id(message['data']['playerId'])
+            player.update_sid(request.sid)
+
+        else:
+            name = message['data']['name']
+            # Use actual game code when implemented
+            # game = Game.get_by_key(message['data']['game key'])
+            player = game1.add_player(name, request.sid)
 
         # DEBUG
         print "Current players: "
@@ -45,6 +51,8 @@ def connection(message):
 def disconnect():
     player = Player.get_by_id(request.sid)
     print player.name, "disconnected."
+    game = Game.get_by_key(player.game_key)
+    game.deactivate_player(player)
 
 
 @socketio.on('rank')
@@ -55,7 +63,7 @@ def rank():
     game = Game.get_by_key(player.game_key)
     rank = game.get_player_rank(player)
 
-    emit('rank',{'data': {'rank': rank}})
+    emit('rank', {'data': {'rank': rank}})
 
 
 @socketio.on('objective')
@@ -65,5 +73,5 @@ def rank(message):
 
     game = Game.get_by_key(player.game_key)
     objective = Objective.get_by_id(message['data']['objectiveId'])
-    
+
     game.player_complete_objective(player, objective)

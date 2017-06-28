@@ -1,5 +1,6 @@
 import uuid
 
+
 class Objective:
     __objective_map = {}
 
@@ -19,4 +20,3 @@ class Objective:
 
     def player_complete(self, player_id):
         self.players_completed.append(player_id)
-
