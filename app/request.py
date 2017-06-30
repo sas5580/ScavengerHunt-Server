@@ -30,6 +30,9 @@ def connection(message):
     if message['data']['type'] == 'player':
         if 'playerId' in message['data']:
             player = Player.get_by_id(message['data']['playerId'])
+            if player.active:
+                return
+
             player.update_sid(request.sid)
 
         else:
@@ -38,14 +41,13 @@ def connection(message):
             # game = Game.get_by_key(message['data']['game key'])
             player = game1.add_player(name, request.sid)
 
+        emit('connection', {'data': {'id': player.id}})
+
         # DEBUG
         print "Current players: "
         for p in game1.player_list():
             print p.name,
         print
-
-    emit('connection', {'data': {'id': player.id}})
-
 
 @socketio.on('disconnect')
 def disconnect():

@@ -36,3 +36,11 @@ class Player:
 
     def complete_objective(self, objective_id):
         self.objectives_complete.append(objective_id)
+
+    def serialize(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'objectives_complete':  self.objectives_complete,
+            'score': self.score,
+        }

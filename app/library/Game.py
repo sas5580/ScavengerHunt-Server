@@ -21,6 +21,7 @@ def binary_search(seq, num):
             lo = mid + 1
     return hi
 
+
 class Game:
     __game_map = {}
 
@@ -60,7 +61,7 @@ class Game:
         data = []
         for objective in self.objectives.values():
             data.append({
-                "id": str(objective.id),
+                "id": objective.id,
                 "name": objective.name,
                 "description": objective.description,
                 "location": objective.location
@@ -93,7 +94,6 @@ class Game:
         player.active = False
         scheduler = GeventScheduler()
         timeout_date = datetime.now()+timedelta(seconds=PLAYER_TIMEOUT)
-        #scheduler.add_job(self.delete_player, 'date', run_date=timeout_date, args=[player])
         scheduler.add_job(self.delete_player, 'date',
                           run_date=timeout_date, args=[player])
         g = scheduler.start()
