@@ -132,3 +132,10 @@ Thumbs.db
 build/*
 *.iml
 gradle.properties
+
+# Packages
+node_modules
+dist
+.tmp
+.sass-cache
+bower_components
