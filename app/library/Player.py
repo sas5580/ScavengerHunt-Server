@@ -27,6 +27,9 @@ class Player:
         Player.__player_map[self.id] = self
         Player.__player_map[self.sid] = self
 
+    def __del__(self):
+        del Player.__player_map[self.id]
+
     def update_location(self, location):
         self.location = location
 

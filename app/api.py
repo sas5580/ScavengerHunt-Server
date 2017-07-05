@@ -8,7 +8,7 @@ def game_info():
     game_id = request.args.get('game_id')
     if game_id in Game.get_list():
         return jsonify({
-            'data': Game.get_by_key(game_id).serialize(),
+            'data': Game.get_by_key(game_id).serialize_objectives(),
             'status': 200
         })
 
@@ -17,7 +17,7 @@ def game_info():
         'message': 'Invalid game id!'
     })
 
-# Game creation endpoints
+##### Game creation endpoints #####
 
 # Expects data to look like:
 """

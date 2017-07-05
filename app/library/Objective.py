@@ -18,5 +18,16 @@ class Objective:
 
         Objective.__objective_map[self.id] = self
 
+    def __del__(self):
+        del Objective.__objective_map[self.id]
+
     def player_complete(self, player_id):
         self.players_completed.append(player_id)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "description": self.description,
+            "location": self.location
+        }

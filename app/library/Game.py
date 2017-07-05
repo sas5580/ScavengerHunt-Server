@@ -33,11 +33,7 @@ class Game:
     def get_by_key(key):
         return Game.__game_map[key]
 
-    @staticmethod
-    def get_by_sid(sid):
-        return Game.__game_map[sid]
-
-    def __init__(self, ownerid, sid):
+    def __init__(self, ownerid):
         self.timestamp = time.time()
 
         while True:
@@ -46,7 +42,6 @@ class Game:
                 break
 
         self.ownderid = ownerid
-        self.sid = sid
         self.players = {}
         self.objectives = {}
         self.scores = []
@@ -55,17 +50,14 @@ class Game:
         self.start_time = None
 
         Game.__game_map[self.key] = self
-        Game.__game_map[self.sid] = self
 
-    def serialize(self):
+    def __del__(self):
+        del Game.__game_map[self.key]
+
+    def serialize_objectives(self):
         data = []
         for objective in self.objectives.values():
-            data.append({
-                "id": objective.id,
-                "name": objective.name,
-                "description": objective.description,
-                "location": objective.location
-            })
+            data.append(objective.serialize())
         return data
 
     def add_player(self, name, sid):
