@@ -11,8 +11,8 @@ print game1.key
 game1.add_player('Yan', '')
 game1.add_player('Sas', '')
 
-game1.add_objective(1111, 2222, "name1", "description")
-game1.add_objective(3333, 4444, "name2", "description2")
+game1.add_objective({"lat": 1111, "long": 2222}, "name1", "description")
+game1.add_objective({"lat": 3333, "long": 4444}, "name2", "description2")
 
 for o in game1.objective_list():
     print o.id
@@ -34,6 +34,7 @@ def connection(message):
                 return
 
             player.update_sid(request.sid)
+            emit('connection', {'data': {'objectives complete': player.objectives_complete}})
 
         else:
             name = message['data']['name']

@@ -1,5 +1,6 @@
 from flask import jsonify, request
 from app import app, Game, Player, Objective
+import json
 
 
 @app.route('/api/game_info/', methods=['GET'])
@@ -11,16 +12,65 @@ def game_info():
             'status': 200
         })
 
-    else:
+    return jsonify({
+        'status': 400,
+        'message': 'Invalid game id!'
+    })
+
+# Game creation endpoints
+
+# Expects data to look like:
+"""
+{
+    "game_id": <string>
+    "objective": {
+        "name": <string>
+        "description": <string>
+        "location": {
+            "lat": <Number>
+            "long": <Number>
+        }
+    }
+}
+"""
+@app.route('/api/add_objective/', methods=['POST'])
+def add_objective():
+    data = json.loads(request.data)
+    game_id = data['game_id']
+    if game_id in Game.get_list():
+        game = Game.get_by_key(game_id)
+
+        if not 'objective' in data:
+            return jsonify({
+                'status': 400,
+                'message': 'Missing objective data'
+            })
+
+        name = data['objective']['name']
+        description = data['objective']['description']
+        location = data['objective']['location']
+        objective = game.add_objective(location, name, description)
+
         return jsonify({
-            'status': 400,
-            'message': 'Invalid game id!'
+            'status': 200
         })
 
+    return jsonify({
+        'status': 400,
+        'message': 'Invalid game id!'
+    })
 
-@app.route('/api/game_stats/', methods=['GET'])
+# Expects data to look like:
+"""
+{
+    "game_id": <String>
+}
+"""
+
+@app.route('/api/game_stats/', methods=['POST'])
 def game_stats():
-    game_id = request.args.get('game_id')
+    data = json.loads(request.data)
+    game_id = data['game_id']
     if game_id in Game.get_list():
         game = Game.get_by_key(game_id)
 
@@ -50,8 +100,9 @@ def game_stats():
             'status': 200
         })
 
-    else:
-        return jsonify({
-            'status': 400,
-            'message': 'Invalid game id!'
-        })
+    return jsonify({
+        'status': 400,
+        'message': 'Invalid game id!'
+    })
+
+

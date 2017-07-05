@@ -109,10 +109,9 @@ class Game:
         del self.players[player.id]
         del player
 
-    def add_objective(self, latitude, longitude, name, description):
-        objective = Objective((latitude, longitude),
-                              name, description, self.key)
-        self.objectives[objective.location] = objective
+    def add_objective(self, location, name, description):
+        objective = Objective(location, name, description, self.key)
+        self.objectives[objective.id] = objective
 
     def objective_list(self):
         return self.objectives.values()
