@@ -64,9 +64,39 @@ def add_objective():
 """
 {
     "game_id": <String>
+    "objective_id": <String>
 }
 """
+@app.route('/api/delete_objective/', methods=['POST'])
+def delete_objective():
+    data = json.loads(request.data)
+    game_id = data['game_id']
+    if game_id in Game.get_list():
+        game = Game.get_by_key(game_id)
 
+        if game.started:
+            return jsonify({
+                'status': 400,
+                'message': 'Can\'t delete objectives if game is in progress'
+            })
+
+        game.delete_objective(data['objective_id'])
+
+        return jsonify({
+            'status': 200
+        })
+
+    return jsonify({
+        'status': 400,
+        'message': 'Invalid game id!'
+    })
+
+# Expects data to look like:
+"""
+{
+    "game_id": <String>
+}
+"""
 @app.route('/api/game_stats/', methods=['POST'])
 def game_stats():
     data = json.loads(request.data)

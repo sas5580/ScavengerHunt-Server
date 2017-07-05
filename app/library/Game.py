@@ -108,6 +108,10 @@ class Game:
     def objective_list(self):
         return self.objectives.values()
 
+    def delete_objective(self, objective_id):
+        del self.objective[objective_id]
+        del Objective.get_by_id(objective_id)
+
     def start(self):
         self.start_time = time.time()
         self.started = True
