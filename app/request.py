@@ -5,7 +5,7 @@ from flask_socketio import emit
 from app import app, socketio, Game, Objective, Player
 
 # Fake data
-game1 = Game(123, '')
+game1 = Game('game1')
 print game1.key
 
 game1.add_player('Yan', '')
@@ -53,9 +53,12 @@ def connection(message):
 @socketio.on('disconnect')
 def disconnect():
     player = Player.get_by_id(request.sid)
-    print player.name, "disconnected."
-    game = Game.get_by_key(player.game_key)
-    game.deactivate_player(player)
+    if player:
+        print player.name, "disconnected."
+        game = Game.get_by_key(player.game_key)
+        game.deactivate_player(player)
+    else:
+        print "Someone disconnected"
 
 
 @socketio.on('rank')

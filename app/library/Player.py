@@ -10,7 +10,9 @@ class Player:
 
     @staticmethod
     def get_by_id(id):
-        return Player.__player_map[id]
+        if id in Player.__player_map:
+            return Player.__player_map[id]
+        return None
 
     def __init__(self, name, game_key, sid):
         self.id = str(uuid.uuid1())

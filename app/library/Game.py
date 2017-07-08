@@ -33,7 +33,7 @@ class Game:
     def get_by_key(key):
         return Game.__game_map[key]
 
-    def __init__(self, ownerid):
+    def __init__(self, name, description=None):
         self.timestamp = time.time()
 
         while True:
@@ -41,7 +41,8 @@ class Game:
             if not self.key in Game.get_list():
                 break
 
-        self.ownderid = ownerid
+        self.name = name
+        self.description = description
         self.players = {}
         self.objectives = {}
         self.scores = []
@@ -110,7 +111,6 @@ class Game:
 
     def delete_objective(self, objective_id):
         del self.objective[objective_id]
-        del Objective.get_by_id(objective_id)
 
     def start(self):
         self.start_time = time.time()
