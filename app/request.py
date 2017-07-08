@@ -43,7 +43,7 @@ def connection(message):
             # game = Game.get_by_key(message['data']['game key'])
             player = game1.add_player(name, request.sid)
 
-        emit('connection', {'data': {'id': player.id}})
+            emit('connection', {'data': {'id': player.id}})
 
         # DEBUG
         print "Current players: "

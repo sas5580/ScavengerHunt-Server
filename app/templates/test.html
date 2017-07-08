@@ -2,6 +2,11 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.2/socket.io.js"></script>
     <script type="text/javascript">
         let ws = io.connect();
+
+        window.onunload = function() {
+            ws.disconnect();
+        }
+
         ws.on('connect', function(msg) {
             console.log("CONNECTED");
             num = Math.floor((Math.random() * 10));
