@@ -25,7 +25,7 @@ def connect():
 
 @socketio.on('connection')
 def connection(message):
-    print "Connection: ", message['data']
+    print "Connection: ", message['data'], request.sid
 
     if message['data']['type'] == 'player':
         if 'playerId' in message['data']:
@@ -34,6 +34,7 @@ def connection(message):
             if player.active:
                 return
 
+            print "Updating player sid to:", request.sid
             player.update_sid(request.sid)
             emit('connection', {'data': {'objectives complete': player.objectives_complete}})
 
@@ -55,12 +56,13 @@ def connection(message):
 def disconnect():
     player = Player.get_by_id(request.sid)
     if player:
-        print player.name, "disconnected."
+        print player.name, "disconnected.", request.sid
         game = Game.get_by_key(player.game_key)
         if player.active:
+            print "Deactivating player"
             game.deactivate_player(player)
     else:
-        print "Someone disconnected"
+        print "Someone disconnected", request.sid
 
 
 @socketio.on('rank')
