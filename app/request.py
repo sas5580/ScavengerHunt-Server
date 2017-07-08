@@ -30,6 +30,7 @@ def connection(message):
     if message['data']['type'] == 'player':
         if 'playerId' in message['data']:
             player = Player.get_by_id(message['data']['playerId'])
+            print "Player", player.name, "reconnected"
             if player.active:
                 return
 
@@ -56,7 +57,8 @@ def disconnect():
     if player:
         print player.name, "disconnected."
         game = Game.get_by_key(player.game_key)
-        game.deactivate_player(player)
+        if player.active:
+            game.deactivate_player(player)
     else:
         print "Someone disconnected"
 
