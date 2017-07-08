@@ -11,8 +11,8 @@ print game1.key
 game1.add_player('Yan', '')
 game1.add_player('Sas', '')
 
-game1.add_objective({"lat": 1111, "long": 2222}, "name1", "description")
-game1.add_objective({"lat": 3333, "long": 4444}, "name2", "description2")
+game1.add_objective({"lat": 37.363983, "long": -122.155824}, "CALI OR BUST", "description")
+game1.add_objective({"lat": 40.632397, "long": -73.931349}, "YAN IS GAY", "description2")
 
 for o in game1.objective_list():
     print o.id
