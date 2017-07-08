@@ -37,7 +37,9 @@ class Player:
 
     def update_sid(self, sid):
         self.active = True
+        del Player.__player_map[self.sid]
         self.sid = sid
+        Player.__player_map[self.sid] = self
 
     def complete_objective(self, objective_id):
         self.objectives_complete.append(objective_id)
