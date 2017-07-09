@@ -80,10 +80,12 @@ def rank():
 @socketio.on('objective')
 def rank(message):
     player = Player.get_by_id(request.sid)
-    print player.name, "completed an objective."
+    print player.name, "completed an objective: ", message
 
     game = Game.get_by_key(player.game_key)
+    print "game: ", game.name
     objective = Objective.get_by_id(message['data']['objectiveId'])
+    print "completing: ", objective.name
 
     if player.id in objective.players_completed:
         print "Player ", player.name, "is trying to complete objective", objective.name, "twice!"
@@ -93,3 +95,4 @@ def rank(message):
     pic_url = message['data']['url']
 
     game.player_complete_objective(player, objective, time, pic_url)
+    print "Process completed objective"
