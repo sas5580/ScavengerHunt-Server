@@ -9,12 +9,12 @@ def test():
 
 @app.route('/create')
 def create_app():
-    return send_from_directory('create/build', 'index.html')
+    return send_from_directory('client', 'index.html')
 
 @app.route('/create/<path:path>')
 def send_resource(path):
-    return send_from_directory('create/build', path)
+    return send_from_directory('client', path)
 
 @app.route('/create/static/<path:path>')
 def send_static_resource(path):
-    return send_from_directory('create/build/static', path)
+    return send_from_directory('client/static', path)
