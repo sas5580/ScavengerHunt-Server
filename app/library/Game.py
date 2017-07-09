@@ -70,8 +70,8 @@ class Game:
     def player_list(self):
         return self.players.values()
 
-    def player_complete_objective(self, player, objective):
-        player.complete_objective(objective.id)
+    def player_complete_objective(self, player, objective, time, url):
+        player.complete_objective(objective.id, time, url)
         objective.player_complete(player.id)
         self.update_player_score(player)
 

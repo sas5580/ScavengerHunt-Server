@@ -41,8 +41,12 @@ class Player:
         self.sid = sid
         Player.__player_map[self.sid] = self
 
-    def complete_objective(self, objective_id):
-        self.objectives_complete.append(objective_id)
+    def complete_objective(self, objective_id, time, url):
+        self.objectives_complete.append({
+            'id': objective_id,
+            'time': time,
+            'url': url
+        })
 
     def serialize(self):
         return {

@@ -73,7 +73,10 @@ def rank():
     game = Game.get_by_key(player.game_key)
     rank = game.get_player_rank(player)
 
-    emit('rank', {'data': {'rank': rank}})
+    emit('rank', {'data': {
+        'rank': rank,
+        'num players': len(Game.player_list())
+    }})
 
 
 @socketio.on('objective')
@@ -83,5 +86,7 @@ def rank(message):
 
     game = Game.get_by_key(player.game_key)
     objective = Objective.get_by_id(message['data']['objectiveId'])
+    time = message['data']['time']
+    pic_url = message['data']['url']
 
-    game.player_complete_objective(player, objective)
+    game.player_complete_objective(player, objective, time, pic_url)
