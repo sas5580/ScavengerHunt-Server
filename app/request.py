@@ -66,7 +66,7 @@ def disconnect():
 
 
 @socketio.on('rank')
-def rank(message):
+def rank():
     player = Player.get_by_id(request.sid)
     print player.name, "requested its rank."
 
@@ -75,7 +75,7 @@ def rank(message):
 
     emit('rank', {'data': {
         'rank': rank,
-        'num players': len(Game.player_list())
+        'num players': len(game.player_list())
     }})
 
 

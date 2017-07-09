@@ -17,6 +17,28 @@ def game_info():
         'message': 'Invalid game id!'
     })
 
+"""
+@app.route('/api/player_rank/', methods=['GET'])
+def game_info():
+    player_id = request.args.get('player_id')
+    game_id = request.args.get('game_id')
+    if game_id in Game.get_list():
+        if player_id in Game.players:
+            print player.name, "requested its rank."
+            return jsonify({
+                'data': {
+                    'rank': rank,
+                    'num players': len(game.player_list())
+                }
+                'status': 200
+            })
+
+    return jsonify({
+        'status': 400,
+        'message': 'Invalid game id!'
+    })
+"""
+
 ##### Game creation endpoints #####
 
 # Expects data to look like:
