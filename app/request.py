@@ -31,8 +31,6 @@ def connection(message):
         if 'playerId' in message['data']:
             player = Player.get_by_id(message['data']['playerId'])
             print "Player", player.name, "reconnected"
-            if player.active:
-                return
 
             print "Updating player sid to:", request.sid
             player.update_sid(request.sid)
