@@ -57,8 +57,8 @@ def disconnect():
     player = Player.get_by_id(request.sid)
     if player:
         print player.name, "disconnected.", request.sid
-        game = Game.get_by_key(player.game_key)
         if player.active:
+            game = Game.get_by_key(player.game_key)
             print "Deactivating player"
             game.deactivate_player(player)
     else:
@@ -86,6 +86,11 @@ def rank(message):
 
     game = Game.get_by_key(player.game_key)
     objective = Objective.get_by_id(message['data']['objectiveId'])
+
+    if player.id in objective.players_completed:
+        print "Player ", player.name, "is trying to complete objective", objective.name, "twice!"
+        return
+
     time = message['data']['time']
     pic_url = message['data']['url']
 

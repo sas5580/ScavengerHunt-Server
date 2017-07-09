@@ -7,7 +7,7 @@ from apscheduler.schedulers.gevent import GeventScheduler
 from Player import Player
 from Objective import Objective
 
-PLAYER_TIMEOUT = 300  # seconds
+PLAYER_TIMEOUT = 900  # seconds
 
 
 def binary_search(seq, num):
