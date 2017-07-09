@@ -66,7 +66,7 @@ def disconnect():
 
 
 @socketio.on('rank')
-def rank():
+def rank(message):
     player = Player.get_by_id(request.sid)
     print player.name, "requested its rank."
 
