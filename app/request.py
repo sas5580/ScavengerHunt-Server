@@ -11,12 +11,12 @@ print game1.key
 game1.add_player('Yan', '')
 game1.add_player('Sas', '')
 
-game1.add_objective({"lat": 37.363983, "long": -122.155824}, "CALI OR BUST", "description")
+game1.add_objective({"lat": 40.633388, "long": -73.931379}, "NOT CALI OR BUST", "description")
 game1.add_objective({"lat": 40.632397, "long": -73.931349}, "YAN IS GAY", "description2")
+game1.add_objective({"lat": 40.632377, "long": -73.931364}, "MEMES", "description2")
 
 for o in game1.objective_list():
     print o.id
-
 
 @socketio.on('connect')
 def connect():
