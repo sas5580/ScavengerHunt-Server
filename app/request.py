@@ -83,7 +83,7 @@ def rank(message):
     print player.name, "completed an objective: ", message
 
     game = Game.get_by_key(player.game_key)
-    print "game: ", game.name
+    print "game:", game.name
     objective = Objective.get_by_id(message['data']['objectiveId'])
     print "completing: ", objective.name
 
