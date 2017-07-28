@@ -2,7 +2,7 @@ import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 import PropTypes from 'prop-types'
 
-let GameForm = ({ handleSubmit }) => {
+const GameForm = ({ handleSubmit }) => {
   return (
     <form onSubmit={ handleSubmit }>
       <div>
