@@ -5,20 +5,21 @@ const initialState = {
 }
 
 const gameInfo = (state = initialState, action) => {
-  switch (action.type) {
+    switch (action.type) {
     case 'CHANGE_STATE':
-      return {
-        ...state,
-        appState: action.state,
-      }
+        return {
+            ...state,
+            appState: action.state,
+        } 
     case 'CREATE_GAME':
-      return {
-        ...state,
-        ...action.gameInfo
-      }
+        console.log(action);
+        return {
+            ...state,
+            ...action.gameInfo
+        }
     default:
-      return state
-  }
+        return state
+    }
 }
 
 export default gameInfo

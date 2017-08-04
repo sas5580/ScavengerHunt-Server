@@ -1,8 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
-import GameForm from '../components/GameForm'
-import { createGame } from '../actions'
+import GameForm from '../components/GameForm';
+import { createGame } from '../actions';
+import { CREATE_ENPOINT } from '../constants';
 
 class GameFormPage extends React.Component {
     render() {
@@ -17,7 +18,27 @@ class GameFormPage extends React.Component {
 const mapDispatchToProps = (dispatch) => {
     return {
         onSubmit: (values) => {
-            dispatch(createGame(values));
+            const { name, description } = values;
+            fetch(CREATE_ENPOINT, {
+                method: 'POST',
+                body: JSON.stringify({
+                    name,
+                    description,
+                })
+            })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                // TODO: handle non 200 status
+                console.log(responseJson);
+                dispatch(createGame({
+                    name,
+                    description,
+                    key: responseJson.game_key
+                }))
+            })
+            .catch((error) => {
+                console.error(error);
+            })
         }
     };
 };
