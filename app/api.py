@@ -41,6 +41,21 @@ def game_info():
 
 ##### Game creation endpoints #####
 
+@app.route('/api/create_game/', methods=['POST'])
+def create_game():
+    print 'Creating game:'
+    data = json.loads(request.data)
+    print data
+    name = data['name']
+    description = data['description']
+
+    game = Game(name, description)
+
+    return jsonify({
+        'status': 200,
+        'game_key': game.key
+    })
+
 # Expects data to look like:
 """
 {

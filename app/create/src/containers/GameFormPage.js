@@ -8,14 +8,18 @@ class GameFormPage extends React.Component {
     render() {
         return (
             <div className={`gameForm ${this.props.visible ? '' : 'invisible'}`}>
-                <GameForm handleSubmit={this.props.onSubmit} />
+                <GameForm onSubmit={ this.props.onSubmit } />
             </div>
         )
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  onSubmit: () => {dispatch(createGame());}
+    return {
+        onSubmit: (values) => {
+            dispatch(createGame(values));
+        }
+    };
 };
 
 export default connect(undefined, mapDispatchToProps)(GameFormPage)
