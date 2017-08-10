@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { post } from '../http';
 import GameForm from '../components/GameForm';
-import { createGame } from '../actions';
-import { CREATE_ENPOINT } from '../constants';
+import { createGame, changeState } from '../actions';
+import { CREATE_ENPOINT, OBJECTIVE_SETUP_STATE } from '../constants';
 
 class GameFormPage extends React.Component {
     render() {
@@ -19,15 +20,11 @@ const mapDispatchToProps = (dispatch) => {
     return {
         onSubmit: (values) => {
             const { name, description } = values;
-            fetch(CREATE_ENPOINT, {
-                method: 'POST',
-                body: JSON.stringify({
-                    name,
-                    description,
-                })
-            })
-            .then((response) => response.json())
-            .then((responseJson) => {
+            // create game on server
+            post(CREATE_ENPOINT, {
+                name,
+                description,
+            }, (responseJson) => {
                 // TODO: handle non 200 status
                 console.log('JSON received:', responseJson);
                 dispatch(createGame({
@@ -35,10 +32,9 @@ const mapDispatchToProps = (dispatch) => {
                     description,
                     key: responseJson.game_key
                 }))
+                dispatch(changeState(OBJECTIVE_SETUP_STATE));
             })
-            .catch((error) => {
-                console.error(error);
-            })
+            // update app state
         }
     };
 };
