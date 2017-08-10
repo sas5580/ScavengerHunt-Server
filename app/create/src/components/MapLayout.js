@@ -13,7 +13,18 @@ const GoogleMapComponent = withGoogleMap(props => (
     />
 ));
 
-class MapBackground extends React.Component {
+class MapLayout extends React.Component {
+    constructor(props){
+        super(props);
+
+        this.handleMapClick = this.handleMapClick.bind(this);
+    }
+
+    handleMapClick(event){
+        let lat = event.latLng.lat();
+        let lng = event.latLng.lng();
+    }
+
     render() {
         return (
         <div className='mapBg' >
@@ -25,4 +36,4 @@ class MapBackground extends React.Component {
     }
 }
 
-export default MapBackground;
+export default MapLayout;
