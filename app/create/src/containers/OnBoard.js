@@ -9,6 +9,7 @@ import logo from '../logo.png'
 const OnBoard = ({ visible, onCreateClick }) => {
     return (
         <div className={`onBoard ${visible ? '' : 'invisible'}`}>
+            <div className='mapBg' />
             <div className='logo'>
                 <img src={logo} />
             </div>

@@ -29,7 +29,7 @@ const mapDispatchToProps = (dispatch) => {
             .then((response) => response.json())
             .then((responseJson) => {
                 // TODO: handle non 200 status
-                console.log(responseJson);
+                console.log('JSON received:', responseJson);
                 dispatch(createGame({
                     name,
                     description,

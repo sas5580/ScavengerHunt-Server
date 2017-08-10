@@ -44,17 +44,24 @@ def game_info():
 @app.route('/api/create_game/', methods=['POST'])
 def create_game():
     print 'Creating game:'
-    data = json.loads(request.data)
-    print data
-    name = data['name']
-    description = data['description']
 
-    game = Game(name, description)
+    try: 
+        data = json.loads(request.data)
+        print data
+        name = data['name']
+        description = data['description'] if 'description' in data else ''
 
-    return jsonify({
-        'status': 200,
-        'game_key': game.key
-    })
+        game = Game(name, description)
+
+        return jsonify({
+            'status': 200,
+            'game_key': game.key
+        })
+    except:
+        return jsonify({
+            'status': 400,
+            'message': 'Invalid payload, can\'t create game'
+        })
 
 # Expects data to look like:
 """
