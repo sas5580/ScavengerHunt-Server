@@ -1,4 +1,5 @@
 import React, { Component} from 'react';
+import './AddObjectiveDialog.css';
 
 class AddObjectiveDialog extends Component {
 
@@ -12,8 +13,12 @@ class AddObjectiveDialog extends Component {
 	render(){
 		console.log("add objective");
 		return(
-			<div>
-				AddObjectiveDialog
+			<div className='AddObjectiveDialog'>
+				<h2>Add an objective!</h2>
+
+				Selected Lat: {this.props.lat} <br></br>
+
+				Selected Lng: {this.props.lng} <br></br>
 			</div>
 		)
 	}

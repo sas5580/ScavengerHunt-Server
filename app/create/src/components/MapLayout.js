@@ -52,7 +52,7 @@ export default class MapLayout extends React.Component {
                 markers = {this.state.markers}
             />
 
-            {this.state.selectedLat != null ? (<AddObjectiveDialog/>) : (<div></div>)}
+            {this.state.selectedLat != null ? (<AddObjectiveDialog lat={this.state.selectedLat} lng={this.state.selectedLng}/>) : (<div></div>)}
         </div>
         );
     }
