@@ -3,7 +3,7 @@
 }
 
 .invisible {
-    height: 0px;
+    display: none;
 }
 
 .mapBg {

@@ -6,7 +6,7 @@ import { CREATE_STATE, TRACK_STATE } from '../constants';
 import './OnBoard.css';
 import logo from '../logo.png'
 
-const OnBoard = ({ visible, onCreateClick }) => {
+const OnBoard = ({ visible, onTrackClick, onCreateClick }) => {
     return (
         <div className={`onBoard ${visible ? '' : 'invisible'}`}>
             <div className='mapBg' />
