@@ -83,7 +83,7 @@ def start_game():
     except:
         return getErrorJson(sys.exc_info())
 
-@app.route('/api/start_game/', methods=['POST'])
+@app.route('/api/end_game/', methods=['POST'])
 def end_game():
     print "Ending game"
 
