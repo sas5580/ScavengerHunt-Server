@@ -7,8 +7,8 @@ const googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.27&libraries=pla
 const GoogleMapComponent = withGoogleMap(props => (
     <GoogleMap
         ref={props.onMapLoad}
-        defaultZoom={8}
-        defaultCenter={{ lat: -25, lng: 131 }}
+        defaultZoom={18}
+        defaultCenter={{ lat: 43.47, lng: -80.54 }}
         googleMapURL={googleMapURL}
         onClick={props.onMapClick}>
 
@@ -31,7 +31,9 @@ export default class MapLayout extends React.Component {
             selectedLat: null,
             selectedLng: null,
         }
+
         this.handleMapClick = this.handleMapClick.bind(this);
+        this.handleObjectiveSubmit = this.handleObjectiveSubmit.bind(this);
     }
 
     handleMapClick(event){
@@ -40,6 +42,23 @@ export default class MapLayout extends React.Component {
             selectedLat: event.latLng.lat(),
             selectedLng: event.latLng.lng(),
         });
+    }
+
+    handleObjectiveSubmit(objective){
+        const location = {lat: this.state.selectedLat, lng: this.state.selectedLng};
+        objective.location = location;
+
+        // let markers = this.state.markers.slice();
+
+        // markers.push(objective);
+
+        // this.setState({
+        //     markers: markers,
+        //     selectedLat: null,
+        //     selectedLng: null,
+        // });
+
+        console.log(objective);
     }
 
     render() {
@@ -52,7 +71,7 @@ export default class MapLayout extends React.Component {
                 markers = {this.state.markers}
             />
 
-            {this.state.selectedLat != null ? (<AddObjectiveDialog lat={this.state.selectedLat} lng={this.state.selectedLng}/>) : (<div></div>)}
+            {this.state.selectedLat != null ? (<AddObjectiveDialog lat={this.state.selectedLat} lng={this.state.selectedLng} submit={this.handleObjectiveSubmit}/>) : (<div></div>)}
         </div>
         );
     }

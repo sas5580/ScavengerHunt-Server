@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
 import GameFormPage from './GameFormPage';
 import OnBoard from './OnBoard';
 import ObjectiveSetup from './ObjectiveSetup'
