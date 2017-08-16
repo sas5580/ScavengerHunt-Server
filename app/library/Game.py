@@ -31,6 +31,9 @@ class Game:
 
     @staticmethod
     def get_by_key(key):
+        if not key  in Game.__game_map:
+            raise KeyError("Game not found with game key %s" % key)
+
         return Game.__game_map[key]
 
     def __init__(self, name, description=None):
@@ -48,6 +51,7 @@ class Game:
         self.scores = []
 
         self.started = False
+        self.ended = False
         self.start_time = None
 
         Game.__game_map[self.key] = self
@@ -103,6 +107,9 @@ class Game:
         del player
 
     def add_objective(self, location, name, description):
+        if self.started:
+            raise AssertionError("Can't add objective if game has already begun")
+
         objective = Objective(location, name, description, self.key)
         self.objectives[objective.id] = objective
 
@@ -110,8 +117,17 @@ class Game:
         return self.objectives.values()
 
     def delete_objective(self, objective_id):
-        del self.objective[objective_id]
+        if game.started:
+            raise AssertionError("Can't delete objective if game has already begun")
+
+        if not objective_id in self.objectives:
+            raise AssertionError("Objective does not exist")
+
+        del self.objectives[objective_id]
 
     def start(self):
+        if game.started:
+            raise AssertionError("Game already started")
+
         self.start_time = time.time()
         self.started = True

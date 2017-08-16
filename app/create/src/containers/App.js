@@ -10,7 +10,7 @@ const App = ({ state }) => (
     <div className='App'>
         <OnBoard visible={state === constants.ONBOARD_STATE} />
         <GameFormPage visible={state === constants.CREATE_STATE} />
-        <ObjectiveSetup visible = {state === constants.OBJECTIVE_SETUP_STATE} />
+        <ObjectiveSetup visible={state === constants.OBJECTIVE_SETUP_STATE} />
     </div>
 )
 

@@ -1,21 +1,25 @@
+import sys
+import json
 from flask import jsonify, request
 from app import app, Game, Player, Objective
-import json
 
+def getErrorJson(error):
+    return jsonify({
+        'status': 400,
+        'message': error[1]
+    })
 
 @app.route('/api/game_info/', methods=['GET'])
 def game_info():
-    game_id = request.args.get('game_id')
-    if game_id in Game.get_list():
+    print "Getting game info"
+    try:
+        game_id = request.args.get('game_id')
         return jsonify({
             'data': Game.get_by_key(game_id).serialize_objectives(),
             'status': 200
         })
-
-    return jsonify({
-        'status': 400,
-        'message': 'Invalid game id!'
-    })
+    except:
+        return getErrorJson(sys.exc_info())
 
 """
 @app.route('/api/player_rank/', methods=['GET'])
@@ -43,7 +47,7 @@ def game_info():
 
 @app.route('/api/create_game/', methods=['POST'])
 def create_game():
-    print 'Creating game:'
+    print 'Creating game'
 
     try: 
         data = json.loads(request.data)
@@ -58,10 +62,46 @@ def create_game():
             'game_key': game.key
         })
     except:
+        return getErrorJson(sys.exc_info())
+
+@app.route('/api/start_game/', methods=['POST'])
+def start_game():
+    print 'Starting game'
+
+    try:
+        data = json.loads(request.data)
+        print data
+        name = data['game_id']
+        game = Game.get_by_key(game_id)
+        game.start()
+
         return jsonify({
-            'status': 400,
-            'message': 'Invalid payload, can\'t create game'
+            'status': 200
         })
+
+
+    except:
+        return getErrorJson(sys.exc_info())
+
+@app.route('/api/start_game/', methods=['POST'])
+def end_game():
+    print "Ending game"
+
+    try:
+        data = json.loads(request.data)
+        print data
+        name = data['game_id']
+        game = Game.get_by_key(game_id)
+        game.end()
+
+        return jsonify({
+            'status': 200
+        })
+
+
+    except:
+        return getErrorJson(sys.exc_info())
+
 
 # Expects data to look like:
 """
@@ -79,16 +119,13 @@ def create_game():
 """
 @app.route('/api/add_objective/', methods=['POST'])
 def add_objective():
-    data = json.loads(request.data)
-    game_id = data['game_id']
-    if game_id in Game.get_list():
-        game = Game.get_by_key(game_id)
+    print 'Adding objective'
 
-        if not 'objective' in data:
-            return jsonify({
-                'status': 400,
-                'message': 'Missing objective data'
-            })
+    try:
+        data = json.loads(request.data)
+        print data
+        game_id = data['game_id']
+        game = Game.get_by_key(game_id)
 
         name = data['objective']['name']
         description = data['objective']['description']
@@ -99,10 +136,8 @@ def add_objective():
             'status': 200
         })
 
-    return jsonify({
-        'status': 400,
-        'message': 'Invalid game id!'
-    })
+    except:
+        return getErrorJson(sys.exc_info())
 
 # Expects data to look like:
 """
@@ -113,16 +148,13 @@ def add_objective():
 """
 @app.route('/api/delete_objective/', methods=['POST'])
 def delete_objective():
-    data = json.loads(request.data)
-    game_id = data['game_id']
-    if game_id in Game.get_list():
-        game = Game.get_by_key(game_id)
+    print "Deleting objective"
 
-        if game.started:
-            return jsonify({
-                'status': 400,
-                'message': 'Can\'t delete objectives if game is in progress'
-            })
+    try:
+        data = json.loads(request.data)
+        print data
+        game_id = data['game_id']
+        game = Game.get_by_key(game_id)
 
         game.delete_objective(data['objective_id'])
 
@@ -130,10 +162,8 @@ def delete_objective():
             'status': 200
         })
 
-    return jsonify({
-        'status': 400,
-        'message': 'Invalid game id!'
-    })
+    except:
+        return getErrorJson(sys.exc_info())
 
 # Expects data to look like:
 """
@@ -143,9 +173,12 @@ def delete_objective():
 """
 @app.route('/api/game_stats/', methods=['POST'])
 def game_stats():
-    data = json.loads(request.data)
-    game_id = data['game_id']
-    if game_id in Game.get_list():
+    print "Getting game stats"
+
+    try:
+        data = json.loads(request.data)
+        print data
+        game_id = data['game_id']
         game = Game.get_by_key(game_id)
 
         objective_stats = []
@@ -174,9 +207,7 @@ def game_stats():
             'status': 200
         })
 
-    return jsonify({
-        'status': 400,
-        'message': 'Invalid game id!'
-    })
+    except:
+        return getErrorJson(sys.exc_info())
 
 
