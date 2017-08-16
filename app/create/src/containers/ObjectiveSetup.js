@@ -11,7 +11,7 @@ const ObjectiveSetup = ({gameName, gameKey, visible}) => {
 			</div>
 
 			<div className='objectiveSetup'>
-				<MapLayout gameKey={gameKey}/>
+				<MapLayout />
 			</div>
 		</div>
 	);

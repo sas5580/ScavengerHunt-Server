@@ -1,6 +1,8 @@
 import React from 'react';
 import { withGoogleMap, GoogleMap, Marker, InfoWindow} from 'react-google-maps';
 import AddObjectiveDialog from './AddObjectiveDialog';
+import { post } from '../http';
+import { ADD_OBJECTIVE_ENDPOINT } from '../constants';
 
 const googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.27&libraries=places,geometry&key=AIzaSyBMc_L847oGm0yvye5IsYGyQnfWGs1ryq4";
 
@@ -44,9 +46,17 @@ export default class MapLayout extends React.Component {
         });
     }
 
-    handleObjectiveSubmit(objective){
+    handleObjectiveSubmit(objective_form){
         const location = {lat: this.state.selectedLat, lng: this.state.selectedLng};
-        objective.location = location;
+        const objective = {
+            ...objective_form,
+            location
+        };
+        const data = {game_id: this.props.gameKey, objective};
+
+        post(ADD_OBJECTIVE_ENDPOINT, {data}, (response)=>{
+            console.log('Objective response: ' + response);
+        });
 
         // let markers = this.state.markers.slice();
 

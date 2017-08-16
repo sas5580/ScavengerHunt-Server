@@ -6,7 +6,7 @@ from app import app, Game, Player, Objective
 def getErrorJson(error):
     return jsonify({
         'status': 400,
-        'message': error[1]
+        'message': str(error[1])
     })
 
 @app.route('/api/game_info/', methods=['GET'])

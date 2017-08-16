@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { post } from '../http';
 import GameForm from '../components/GameForm';
 import { createGame, changeState } from '../actions';
-import { CREATE_ENPOINT, OBJECTIVE_SETUP_STATE } from '../constants';
+import { CREATE_ENDPOINT, OBJECTIVE_SETUP_STATE } from '../constants';
 
 class GameFormPage extends React.Component {
     render() {
@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch) => {
         onSubmit: (values) => {
             const { name, description } = values;
             // create game on server
-            post(CREATE_ENPOINT, {
+            post(CREATE_ENDPOINT, {
                 name,
                 description,
             }, (responseJson) => {
