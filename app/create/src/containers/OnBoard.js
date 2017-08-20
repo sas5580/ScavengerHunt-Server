@@ -6,12 +6,12 @@ import { CREATE_STATE, TRACK_STATE } from '../constants';
 import './OnBoard.css';
 import logo from '../logo.png'
 
-const OnBoard = ({ visible, onTrackClick, onCreateClick }) => {
+const OnBoard = ({ onTrackClick, onCreateClick }) => {
     return (
-        <div className={`onBoard ${visible ? '' : 'invisible'}`}>
+        <div className='onBoard'>
             <div className='mapBg' />
             <div className='logo'>
-                <img src={logo} />
+                <img src={logo} alt='map-bg' />
             </div>
             <button className='button -regular -green' id='createBtn' onClick={onCreateClick}>
                 Create

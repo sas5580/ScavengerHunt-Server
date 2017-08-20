@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import MapLayout from '../components/MapLayout';
 import './ObjectiveSetup.css';
 
-const ObjectiveSetup = ({gameName, gameKey, visible}) => {
+const ObjectiveSetup = ({ gameName, gameKey }) => {
 	return (
-		<div className={visible ? '' : 'invisible'}>
+		<div className='objectiveSetup'>
 			<div className='instruction'>
 				Add objectives to '{gameName}'!
 			</div>

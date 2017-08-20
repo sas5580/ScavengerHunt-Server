@@ -9,7 +9,7 @@ import { CREATE_ENDPOINT, OBJECTIVE_SETUP_STATE } from '../constants';
 class GameFormPage extends React.Component {
     render() {
         return (
-            <div className={`gameForm ${this.props.visible ? '' : 'invisible'}`}>
+            <div className='gameForm'>
                 <GameForm onSubmit={ this.props.onSubmit } />
             </div>
         )

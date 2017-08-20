@@ -7,9 +7,9 @@ import * as constants from '../constants';
 
 const App = ({ state }) => (
     <div className='App'>
-        <OnBoard visible={state === constants.ONBOARD_STATE} />
-        <GameFormPage visible={state === constants.CREATE_STATE} />
-        <ObjectiveSetup visible={state === constants.OBJECTIVE_SETUP_STATE} />
+        {state === constants.ONBOARD_STATE && <OnBoard />}
+        {state === constants.CREATE_STATE && <GameFormPage />}
+        {state === constants.OBJECTIVE_SETUP_STATE && <ObjectiveSetup />}
     </div>
 )
 
