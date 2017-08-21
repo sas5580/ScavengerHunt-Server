@@ -23,7 +23,6 @@ class Player:
         self.active = True
         self.score = 0
 
-        # Tuple: (lat, long)
         self.location = None
 
         Player.__player_map[self.id] = self
@@ -52,6 +51,6 @@ class Player:
         return {
             'id': self.id,
             'name': self.name,
-            'objectives_complete':  self.objectives_complete,
+            'objectives_complete': self.objectives_complete,
             'score': self.score,
         }

@@ -10,15 +10,19 @@ const gameInfo = (state = initialState, action) => {
         return {
             ...state,
             appState: action.state,
-        } 
+        };
     case 'CREATE_GAME':
-        console.log(action);
         return {
             ...state,
-            ...action.gameInfo
-        }
+            ...action.gameInfo,
+        };
+    case 'UPDATE_STATS':
+        return {
+            ...state,
+            ...action.gameStats,
+        };
     default:
-        return state
+        return state;
     }
 }
 

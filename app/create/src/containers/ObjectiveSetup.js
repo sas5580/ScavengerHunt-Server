@@ -16,9 +16,10 @@ const ObjectiveSetup = ({ gameName, gameKey }) => {
 
 
 const mapStateToProps = (state) => {
+    const { name, key } = state.gameInfo;
     return {
-        gameName: state.gameInfo.name,
-        gameKey: state.gameInfo.key,
+        gameName: name,
+        gameKey: key,
     }
 }
 

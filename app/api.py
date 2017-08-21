@@ -133,7 +133,7 @@ def add_objective():
         objective = game.add_objective(location, name, description)
 
         return jsonify({
-            'status': 200
+            'status': 200,
         })
 
     except:

@@ -3,10 +3,15 @@ export const changeState = (state) => ({
     state,
 });
 
-export const createGame = (gameInfo) => {
-    return {
-        type: 'CREATE_GAME',
-        gameInfo,
-    }
-}
+export const createGame = (gameInfo) => ({
+    type: 'CREATE_GAME',
+    gameInfo,
+});
 
+export const updateStats = (gameStats) => ({
+    type: 'UPDATE_STATS',
+    gameStats: {
+        playerStats: gameStats.player_stats,
+        objectiveStats: gameStats.objective_stats,
+    },
+});

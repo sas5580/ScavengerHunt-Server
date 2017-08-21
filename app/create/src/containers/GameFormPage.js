@@ -2,9 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { post } from '../http';
-import GameForm from '../components/GameForm';
 import { createGame, changeState } from '../actions';
 import { CREATE_ENDPOINT, OBJECTIVE_SETUP_STATE } from '../constants';
+
+import GameForm from '../components/GameForm';
 
 class GameFormPage extends React.Component {
     render() {
@@ -26,17 +27,19 @@ const mapDispatchToProps = (dispatch) => {
                 description,
             }, (responseJson) => {
                 // TODO: handle non 200 status
-                console.log('JSON received:', responseJson);
+                console.log('CREATE RESPONSE:', responseJson);
                 dispatch(createGame({
                     name,
                     description,
                     key: responseJson.game_key
                 }))
                 dispatch(changeState(OBJECTIVE_SETUP_STATE));
-            })
-            // update app state
+            });
         }
     };
 };
 
-export default connect(undefined, mapDispatchToProps)(GameFormPage)
+export default connect(
+    undefined,
+    mapDispatchToProps
+)(GameFormPage);
