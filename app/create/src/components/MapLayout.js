@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactLoading from 'react-loading';
 import { withGoogleMap, GoogleMap, Marker, InfoWindow} from 'react-google-maps';
 import AddObjectiveDialog from './AddObjectiveDialog';
 import { post } from '../http';
@@ -35,6 +36,7 @@ export default class MapLayout extends React.Component {
         }
 
         this.handleMapClick = this.handleMapClick.bind(this);
+        this.handleCloseObjective = this.handleCloseObjective.bind(this);
         this.handleObjectiveSubmit = this.handleObjectiveSubmit.bind(this);
     }
 
@@ -46,6 +48,14 @@ export default class MapLayout extends React.Component {
         });
     }
 
+    handleCloseObjective(){
+        this.setState({
+            markers: this.state.markers,
+            selectedLat: null,
+            selectedLng: null,
+        });
+    }
+
     handleObjectiveSubmit(objective_form){
         const location = {lat: this.state.selectedLat, lng: this.state.selectedLng};
         const objective = {
@@ -54,26 +64,28 @@ export default class MapLayout extends React.Component {
         };
         const data = {game_id: this.props.gameKey, objective};
 
-        post(ADD_OBJECTIVE_ENDPOINT, {data}, (response)=>{
-            console.log('Objective response: ' + response);
+        post(ADD_OBJECTIVE_ENDPOINT, data, (response)=>{
+            console.log('Objective response: ' , response);
+            //handle non 200 responses later
+
+            let newMarkers = this.state.markers.slice();
+            let marker = {
+                position: location,
+                key: objective.name
+            };
+
+            newMarkers.push(marker);
+            this.setState({
+                markers: newMarkers,
+                selectedLat: null,
+                selectedLng: null,
+            });
         });
-
-        // let markers = this.state.markers.slice();
-
-        // markers.push(objective);
-
-        // this.setState({
-        //     markers: markers,
-        //     selectedLat: null,
-        //     selectedLng: null,
-        // });
-
-        console.log(objective);
     }
 
     render() {
         return (
-        <div style = {{height: '100vh', width: '100%'}}>
+        <div className = 'GoogleMapComponent' style = {{height: '100vh', width: '100%'}}>
             <GoogleMapComponent
                 containerElement={ <div style={{ height: '100%' }}/> }
                 mapElement={ <div style={{ height: '100%' }}/> }
@@ -81,7 +93,7 @@ export default class MapLayout extends React.Component {
                 markers = {this.state.markers}
             />
 
-            {this.state.selectedLat != null ? (<AddObjectiveDialog lat={this.state.selectedLat} lng={this.state.selectedLng} submit={this.handleObjectiveSubmit}/>) : (<div></div>)}
+            {this.state.selectedLat != null ? (<AddObjectiveDialog lat={this.state.selectedLat} lng={this.state.selectedLng} submit={this.handleObjectiveSubmit} close={this.handleCloseObjective}/>) : (<div></div>)}
         </div>
         );
     }

@@ -9,10 +9,7 @@ const ObjectiveSetup = ({ gameName, gameKey }) => {
 			<div className='instruction'>
 				Add objectives to '{gameName}'!
 			</div>
-
-			<div className='objectiveSetup'>
-				<MapLayout />
-			</div>
+			<MapLayout gameKey={gameKey}/>
 		</div>
 	);
 }
