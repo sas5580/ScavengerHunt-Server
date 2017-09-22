@@ -1,6 +1,7 @@
 export const CREATE_ENDPOINT = '/api/create_game/';
 export const ADD_OBJECTIVE_ENDPOINT = '/api/add_objective/';
 export const GAME_STATS_ENDPOINT = '/api/game_stats/';
+export const DELETE_OBJECTIVE_ENDPOINT = '/api/delete_objective/';
 
 export const ONBOARD_STATE = 0;
 export const CREATE_STATE = 1;

@@ -134,6 +134,7 @@ def add_objective():
 
         return jsonify({
             'status': 200,
+            'id': objective.id
         })
 
     except:
