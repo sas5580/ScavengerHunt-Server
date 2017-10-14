@@ -191,6 +191,7 @@ def game_stats():
 
             objective_stats.append({
                 'id': objective.id,
+                'name': objective.name,
                 'players_complete': players_complete
             })
 

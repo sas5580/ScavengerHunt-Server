@@ -5,6 +5,7 @@
   "homepage": "https://glacial-garden-48114.herokuapp.com/create",
   "proxy": "http://localhost:8000",
   "dependencies": {
+    "fixed-data-table": "^0.6.4",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",

@@ -4,19 +4,16 @@ import PropTypes from 'prop-types';
 
 import './Form.css';
 
-const GameForm = ({ handleSubmit }) => {
+const TrackForm = ({ handleSubmit }) => {
     return (
-    <div className='game-form'>
+    <div className='track-form'>
         <div className='mapBg' />
         <form onSubmit={ handleSubmit } className='create-form'>
             <div className='user-prompt'>
-                Get your shareable game key by naming and describing your scavanger hunt game!
+                Enter the 4 character game key to track its progress.
             </div>
             <div>
-                <Field name='name' component='input' type='text' className='field field-name' placeholder="Game Name"/>
-            </div>
-            <div>
-                <Field name='description' component='textarea' type='text' className='field field-description' placeholder="Game Description"/>
+                <Field name='key' component='input' type='text' className='field field-name' placeholder="Game key"/>
             </div>
             <button type='submit' className='button -regular -green'>Create!</button>
         </form>
@@ -24,11 +21,11 @@ const GameForm = ({ handleSubmit }) => {
     )
 }
 
-GameForm.PropTypes = {
+TrackForm.PropTypes = {
     onSubmit: PropTypes.func.isRequired
 }
 
 export default reduxForm({
     form: 'contact'
-})(GameForm)
+})(TrackForm)
 
